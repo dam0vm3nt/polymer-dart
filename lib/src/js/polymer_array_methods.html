@@ -37,9 +37,9 @@
       return value;
     };
 
-    var _originalSplice = Polymer.Base.splice;
+    Polymer.Base._originalSplice = Polymer.Base.splice;
     Polymer.Base.splice = function(path, index, removeCount) {
-      var value = _originalSplice.apply(this, arguments);
+      var value = Polymer.Base._originalSplice.apply(this, arguments);
       var dartList = this.get(path).__dartClass__;
       if (dartList == null) return value;
       Polymer.Dart.splice(
