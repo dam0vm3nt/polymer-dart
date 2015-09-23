@@ -23,8 +23,14 @@ Future initPolymer() async {
 
 final _polymerDart = context['Polymer']['Dart'];
 
+bool polymerDartSyncDisabled=false;
+
+
 void _setUpPropertyChanged() {
   _polymerDart['propertyChanged'] = (instance, String path, newValue) {
+    if (polymerDartSyncDisabled) {
+      return;
+    }
     if (instance is List) {
       // We only care about `splices` for Lists. This does mean we don't support
       // setting special properties of custom List implementations though.
