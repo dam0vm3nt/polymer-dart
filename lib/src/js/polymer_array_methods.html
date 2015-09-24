@@ -6,7 +6,6 @@
     Polymer.Base.push = function(path) {
       var value = _originalPush.apply(this, arguments);
       if (this["__DISABLE_SYNC__"]==1) return value;
-      console.log("PUSH JS : "+this+" - "+this["__DISABLE_SYNC__"]);
       var dartList = this.get(path).__dartClass__;
       if (dartList == null) return value;
       Polymer.Dart.push(dartList, Array.prototype.splice.call(arguments, 1));
@@ -17,7 +16,6 @@
     Polymer.Base.pop = function(path) {
       var value = this._originalPop(path);
       if (this["__DISABLE_SYNC__"]==1) return value;
-      console.log("POP JS : "+this+" - "+this["__DISABLE_SYNC__"]);
       var dartList = this.get(path).__dartClass__;
       if (dartList == null) return value;
       Polymer.Dart.pop(dartList);
@@ -28,7 +26,6 @@
     Polymer.Base.shift = function(path) {
       var value = this._originalShift(path);
       if (this["__DISABLE_SYNC__"]==1) return value;
-      console.log("SHIFT JS : "+this+" - "+this["__DISABLE_SYNC__"]);
       var dartList = this.get(path).__dartClass__;
       if (dartList == null) return value;
       Polymer.Dart.shift(dartList);
@@ -39,7 +36,6 @@
     Polymer.Base.unshift = function(path) {
       var value = _originalUnshift.apply(this, arguments);
       if (this["__DISABLE_SYNC__"]==1) return value;
-      console.log("UNSHIFT JS : "+this+" - "+this["__DISABLE_SYNC__"]);
       var dartList = this.get(path).__dartClass__;
       if (dartList == null) return value;
       Polymer.Dart.unshift(dartList, Array.prototype.splice.call(arguments, 1));
@@ -50,7 +46,6 @@
     Polymer.Base.splice = function(path, index, removeCount) {
       var value = Polymer.Base._originalSplice.apply(this, arguments);
       if (this["__DISABLE_SYNC__"]==1) return value;
-      console.log("SPLICE JS : "+this+" - "+this["__DISABLE_SYNC__"]);
       var dartList = this.get(path).__dartClass__;
       if (dartList == null) return value;
       Polymer.Dart.splice(
