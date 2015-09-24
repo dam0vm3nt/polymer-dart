@@ -6,9 +6,14 @@
     Polymer.Base.push = function(path) {
       var value = _originalPush.apply(this, arguments);
       if (this["__DISABLE_SYNC__"]==1) return value;
-      var dartList = this.get(path).__dartClass__;
-      if (dartList == null) return value;
-      Polymer.Dart.push(dartList, Array.prototype.splice.call(arguments, 1));
+      this["__DISABLE_SYNC__"]=-1;
+      try {
+        var dartList = this.get(path).__dartClass__;
+        if (dartList == null) return value;
+        Polymer.Dart.push(dartList, Array.prototype.splice.call(arguments, 1));
+      } finally {
+      //  this["__DISABLE_SYNC__"]=0;
+      }
       return value;
     };
 
@@ -16,9 +21,14 @@
     Polymer.Base.pop = function(path) {
       var value = this._originalPop(path);
       if (this["__DISABLE_SYNC__"]==1) return value;
-      var dartList = this.get(path).__dartClass__;
-      if (dartList == null) return value;
-      Polymer.Dart.pop(dartList);
+      try {
+        this["__DISABLE_SYNC__"]=-1;
+        var dartList = this.get(path).__dartClass__;
+        if (dartList == null) return value;
+        Polymer.Dart.pop(dartList);
+      } finally {
+       //this["__DISABLE_SYNC__"]=0;
+      }
       return value;
     };
 
@@ -26,9 +36,14 @@
     Polymer.Base.shift = function(path) {
       var value = this._originalShift(path);
       if (this["__DISABLE_SYNC__"]==1) return value;
-      var dartList = this.get(path).__dartClass__;
-      if (dartList == null) return value;
-      Polymer.Dart.shift(dartList);
+      this["__DISABLE_SYNC__"]=-1;
+      try {
+        var dartList = this.get(path).__dartClass__;
+        if (dartList == null) return value;
+        Polymer.Dart.shift(dartList);
+      } finally {
+      //  this["__DISABLE_SYNC__"]=0;
+      }
       return value;
     };
 
@@ -36,9 +51,14 @@
     Polymer.Base.unshift = function(path) {
       var value = _originalUnshift.apply(this, arguments);
       if (this["__DISABLE_SYNC__"]==1) return value;
+      this["__DISABLE_SYNC__"]=-1;
+      try {
       var dartList = this.get(path).__dartClass__;
       if (dartList == null) return value;
       Polymer.Dart.unshift(dartList, Array.prototype.splice.call(arguments, 1));
+      } finally {
+       // this["__DISABLE_SYNC__"]=0;
+      }
       return value;
     };
 
@@ -46,11 +66,16 @@
     Polymer.Base.splice = function(path, index, removeCount) {
       var value = Polymer.Base._originalSplice.apply(this, arguments);
       if (this["__DISABLE_SYNC__"]==1) return value;
+      this["__DISABLE_SYNC__"]=-1;
+      try {
       var dartList = this.get(path).__dartClass__;
       if (dartList == null) return value;
       Polymer.Dart.splice(
           dartList, index, removeCount,
           Array.prototype.splice.call(arguments, 3));
+      } finally {
+       // this["__DISABLE_SYNC__"]=0;
+      }
       return value;
     };
   })();
