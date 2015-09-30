@@ -48,8 +48,9 @@ transformers:
       - test/src/template/dom_repeat_test.dart
 dependency_overrides:
   polymer_interop:
-    git:
-      ref: 0.2.0-rc1
-      url: https://github.com/dart-lang/polymer_interop.git
+   path: ../polymer_interop
+#    git:
+#      ref: 0.2.0-rc1
+#      url: https://github.com/dart-lang/polymer_interop.git
 environment:
   sdk: '>=1.4.0 <2.0.0'

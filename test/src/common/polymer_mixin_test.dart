@@ -57,7 +57,7 @@ main() async {
       element.set('myThings.1.field', "E");
 
       expect(element.myThings.map((Thing t) => t.field).toList(), ["D", "E"]);
-    }, skip: "Until https://github.com/Polymer/polymer/issues/2490 is fixed");
+    });
 
     test('List.replace', () {
       element.add('myThings', new Thing("A"));
@@ -68,7 +68,7 @@ main() async {
       element.set('myThings.1', new Thing("E"));
 
       expect(element.myThings.map((Thing t) => t.field).toList(), ["D", "E"]);
-    }, skip: "Until https://github.com/Polymer/polymer/issues/2490 is fixed");
+    });
 
     test('JsProxy', () {
       var newModel = new Model('world');
