@@ -74,8 +74,9 @@ BSD-style license that can be found in the LICENSE file.
     Polymer.Dart.InteropBehavior = {
       // Secret hook into property changes. Pretty hacky but its more efficient
       // than using a JsProxy object for the element.
-      _propertyChanged: function(path, newValue, oldValue) {
-        var parts = path.split('.');
+      _propertyChanged: function(path, newValue, oldValue,origPath) {
+        console.log("DART _propCh "+origPath+" / "+path);
+        var parts = (origPath || path).split('.');
         var thisArg = parts.length == 1 ?
             this : this.get(parts.slice(0, parts.length - 1));
         thisArg = thisArg.__dartClass__ || thisArg;
@@ -83,14 +84,15 @@ BSD-style license that can be found in the LICENSE file.
             thisArg, parts[parts.length - 1], newValue);
       },
 
-      notifyPath: function(path, value, fromAbove) {
+      notifyPath: function(path, value, fromAbove,origPath) {
+        console.log("dart nP "+origPath+" / "+path);
         var notified =
-            Polymer.Base.notifyPath.call(this, path, value, fromAbove);
+            Polymer.Base.notifyPath.call(this, path, value, fromAbove,origPath);
         if (fromAbove) return notified;
 
         // If you call notifyPath from dart we need to do manual modifications
         // on any JsArray or JsObject instances.
-        var parts = this._getPathParts(path);
+        var parts = this._getPathParts(origPath ||path);
         if (parts.length > 1) {
           var model = this.get(parts.splice(0, parts.length - 1));
           if (model[parts[0]] != value) model[parts[0]] = value;
