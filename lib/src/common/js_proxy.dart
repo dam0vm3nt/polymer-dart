@@ -83,6 +83,12 @@ class JsProxyReflectable extends Reflectable {
 
 const jsProxyReflectable = const JsProxyReflectable();
 
+@metaReflector
+class ReflectorRegistry {
+  @MetaReflectorScope(const ["polymer","observe"])
+  static get jsProxyReflectable => jsProxyReflectable;
+}
+
 final JsObject _polymerDart = context['Polymer']['Dart'];
 
 /// Given a dart type, this creates a javascript constructor and prototype

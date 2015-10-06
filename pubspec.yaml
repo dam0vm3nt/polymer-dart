@@ -46,6 +46,10 @@ transformers:
       - test/src/template/dom_if_test.dart
       - test/src/template/dom_repeat_test.dart
 dependency_overrides:
+  reflectable:
+   git: 
+    ref : meta
+    url: https://github.com/dam0vm3nt/reflectable.git
   polymer_interop:
     git:
       ref: 0.2.0-rc1
